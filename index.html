@@ -29,7 +29,15 @@
           let pokemon = res.data
           console.log(pokemon)
 
-          
+          let nameArr = pokemon.name.split('')
+          nameArr[0] = nameArr[0].toUpperCase()
+          let name = nameArr.join('')
+          document.getElementById('info').innerHTML = `
+            <h1>Name: ${name}</h1>
+            <h2>Pokedex#: ${pokemon.id}</h2>
+            <h3>Height: ${pokemon.height}</h3>
+            <h4>Weight: ${pokemon.weight}</h4>
+          `
         })
         .catch(err => console.log(err))
     })
