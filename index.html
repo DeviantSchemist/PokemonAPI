@@ -29,6 +29,7 @@
           let pokemon = res.data
           console.log(pokemon)
 
+          document.getElementById('info').innerHTML = ''
           let nameArr = pokemon.name.split('')
           nameArr[0] = nameArr[0].toUpperCase()
           let name = nameArr.join('')
@@ -38,6 +39,21 @@
             <h3>Height: ${pokemon.height}</h3>
             <h4>Weight: ${pokemon.weight}</h4>
           `
+
+          axios.get(`https://api.giphy.com/v1/gifs/search?api_key=j6yOF05YP8AGwMifwqeDBZ1RYjr4n0Tj&q=${pokemon.name}&rating=g&limit=5`)
+            .then(resp => {
+              let gifs = resp.data.data
+
+              document.getElementById('gifs').innerHTML = ''
+              gifs.forEach(gif => {
+                let gifElem = document.createElement('img')
+                gifElem.className = 'gif'
+                gifElem.src = gif.images.original.url
+                gifElem.alt = gif.title
+                document.getElementById('gifs').append(gifElem)
+              })
+            })
+            .catch(err => console.log(err))
         })
         .catch(err => console.log(err))
     })
